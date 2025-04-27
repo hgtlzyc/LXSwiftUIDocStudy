@@ -1,3 +1,35 @@
+// MARK: - 250425 UIViewController LifeCycle
+/// https://medium.com/@vipandey54/uiviewcontroller-lifecycle-7ca2d36f4f07
+/*
+ . loadView()
+ . loadViewIfNeeded()
+ . viewDidLoad()
+ . viewWillAppear(_ animated: Bool)
+ . viewWillLayoutSubviews()
+ . viewDidLayoutSubviews()
+ . viewDidAppear(_ animated: Bool)
+ . viewWillDisappear(_ animated: Bool)
+ . viewDidDisappear(_ animated: Bool)
+ */
+
+// MARK: - Implementing a Container View Controller
+/// https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html#//apple_ref/doc/uid/TP40007457-CH11-SW1
+
+/// Listing 5-1Adding a child view controller to a container
+- (void) displayContentController: (UIViewController*) content {
+   [self addChildViewController:content];
+   content.view.frame = [self frameForContentController];
+   [self.view addSubview:self.currentClientView];
+   [content didMoveToParentViewController:self];
+}
+
+/// Removing a child view controller from a container
+- (void) hideContentController: (UIViewController*) content {
+    [content willMoveToParentViewController:nil];
+    [content.view removeFromSuperview];
+    [content removeFromParentViewController];
+}
+
 // MARK: - 250422 UIKit integration
 /// https://developer.apple.com/documentation/swiftui/uikit-integration
 // Add UIKit views to your SwiftUI app, or use SwiftUI views in your UIKit app.
@@ -10982,15 +11014,16 @@ TextEditor(text: $text)
 
  Drawing Group: renders the view as an image offscreen first before showing https://developer.apple.com/documentation/swiftui/view/drawinggroup(opaque:colormode:)
 
- “Don’t move my sh*t around while animating”
+ “Don’t move around while animating”
 
  Geometry Group: Isolates the geometry (e.g. position and size) of the view from its parent view https://developer.apple.com/documentation/swiftui/view/geometrygroup()
 
- “Lay out this sh*t together”
+ “Lay out together”
+ ///https://fatbobman.com/en/posts/mastring-geometrygroup/#:~:text=understandable%20documentation%20explanation%3A-,geometryGroup(),animation%20to%20their%20frame%20rectangle.
 
  Composition Group: makes compositing effects in this view’s ancestor views, such as opacity and the blend mode, take effect before this view is rendered. https://developer.apple.com/documentation/swiftui/view/compositinggroup()
 
- “Parent needs to take care of their sh*t before the kid takes care of their sh*t”
+ “Parent needs to take care of their sh*t before the kid takes care of their selfs”
  */
 
 // MARK: - Drawing Group
@@ -12056,3 +12089,4 @@ struct MyCustomType: Transition {
 extension MyCustomType: Transition {
     // `nonisolated` by default
 }
+
